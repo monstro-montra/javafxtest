@@ -1,6 +1,7 @@
 package cs2;
 //import necessary libraries
 import java.time.LocalDate;
+import java.time.LocalTime;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.Popup;
@@ -24,23 +25,24 @@ public class App extends Application
         primaryStage.setTitle("User Interface"); //set the title to "User Interface Test"
         final MenuBar menuBar = new MenuBar(); //creates a menu bar at the top of the window
         Menu Options = new Menu("Options"); //add new menu called "Options"
-        
-        primaryStage.show();
+
+
 
         //add menu items for m1
-        MenuItem OptionsItem1 = new MenuItem("Date"); 
+        MenuItem OptionsItem1 = new MenuItem("Date");
         MenuItem OptionsItem2 = new MenuItem("Option 2");
         MenuItem OptionsItem3 = new MenuItem("Option 3");
         MenuItem OptionsItem4 = new MenuItem("Option 4");
         Options.getItems().addAll(OptionsItem1, OptionsItem2, OptionsItem3, OptionsItem4);
 
         LocalDate currentDate = LocalDate.now();
-        Label popupLabel = new Label("Current Date: " + currentDate);
+        LocalTime currentTime = LocalTime.now();
+        Label popupLabel = new Label("Current Date: " + currentDate + "\n" + "Current Time: " + currentTime);
 
         final Popup datePopup = new Popup();
         datePopup.getContent().add(popupLabel);
 
-        
+
 
         OptionsItem1.setOnAction(event -> {
 
@@ -56,12 +58,13 @@ public class App extends Application
 
         OptionsItem4.setOnAction(event -> System.out.println("bonjour"));
 
-        
-        menuBar.getMenus().addAll(Options); 
+
+        menuBar.getMenus().addAll(Options);
         Scene scene = new Scene(menuBar, 600, 600);
 
         primaryStage.setScene(scene);
-        
+        primaryStage.show();
+
 
     }
 }
