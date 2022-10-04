@@ -96,7 +96,9 @@ class NodeOne extends StackPane {
         LocalTime currentTime = LocalTime.now();
         setStyle("-fx-background-color: lightblue; -fx-font-size: 30px;");
         Label showDateAndTime = new Label("Current Date: " + currentDate + "\n" + "Current Time: " + currentTime);
-        getChildren().add(showDateAndTime);
+        Button submit = new Button("Submit");
+        getChildren().addAll(showDateAndTime, submit);
+
 
     }
 
@@ -106,6 +108,7 @@ class NodeTwo extends StackPane {
     public NodeTwo(){
         setStyle("-fx-background-color: red; -fx-font-size: 30px;");
         TextField userTextField = new TextField();
+        userTextField.setMaxWidth(300);
 
         userTextField.setOnAction(event -> {
             String userInput = userTextField.getText();
