@@ -3,12 +3,9 @@ package cs2;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.concurrent.atomic.AtomicReference;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -79,19 +76,18 @@ public class App extends Application
         menuBar.getMenus().addAll(Options);
     }
 
-    private GridPane genPaneOne(){
+    private void genPaneOne(){
         LocalDate currentDate = LocalDate.now();
         LocalTime currentTime = LocalTime.now();
         Label showDateAndTime;
         showDateAndTime = new Label("Current Date: " + currentDate + "\n" + "Current Time: " + currentTime);
 
         view1.getChildren().addAll(showDateAndTime);
-        view1.setStyle("-fx-border-color:red; -fx-border-width: 600 600 2 2");
-        view1.setRowIndex(showDateAndTime, 1);
-        view1.setAlignment(Pos.TOP_CENTER);
+
+        //GridPane.setRowIndex(showDateAndTime, 2);
+        view1.setAlignment(Pos.CENTER);
 
 
-        return view1;
     }
 
     private GridPane genPaneTwo(){
@@ -101,8 +97,7 @@ public class App extends Application
         Button submit = new Button("Submit");
         view2.getChildren().addAll(userTextField, submit);
 
-        view2.setHalignment(userTextField, HPos.CENTER);
-        view2.setHalignment(submit, HPos.RIGHT);
+        view2.setAlignment(Pos.CENTER);
         view2.setStyle("-fx-background-color: blue");
 
         return view2;
