@@ -1,154 +1,76 @@
 package cs2;
 //import necessary libraries
-import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.application.Application;
 
-import static java.lang.System.out;
-
-
 public class App extends Application
 {
-    //class level variables
-    private Stage stage = new Stage();
+    private final MenuBar menuBar = new MenuBar(); //creates a menu bar
+    private final Menu File = new Menu("File");
+    private final MenuItem FileItem1 = new MenuItem("Back to main menu");
+    private final Menu Options = new Menu("Options"); //add new menu called "Options"
     private final MenuItem OptionsItem1 = new MenuItem("Date");
     private final MenuItem OptionsItem2 = new MenuItem("Write");
     private final MenuItem OptionsItem3 = new MenuItem("Option 3");
-    private final MenuItem OptionsItem4 = new MenuItem("Option 4");
-    private final MenuBar menuBar = new MenuBar(); // creates a menu bar at the top of the window
-    private final Menu Options = new Menu("Options"); //add new menu called "Options"
-    private BorderPane borderPane;
+    private final MenuItem OptionsItem4 = new MenuItem("Exit");
+    private BorderPane root;
+    private final Node mainView = new MainNode();
+    private final Node view1 = new NodeOne();
+    private final Node view2 = new NodeTwo();
+    private final Node view3 = new NodeThree();
 
-    GridPane view1 = new GridPane();
-    GridPane view2 = new GridPane();
-    GridPane view3 = new GridPane();
-    GridPane view4 = new GridPane();
-    VBox menuVBox;
     @Override
-    public void start(Stage primaryStage) {
-        stage = primaryStage;
+    public void start(Stage primaryStage){
         primaryStage.setTitle("User Interface"); //set the title to "User Interface Test"
-        genMenu();
-        genPaneOne();
-        genPaneTwo();
+        genMenuBar(); //call the genMenu method
+        switchView(mainView);
 
-        borderPane = new BorderPane();
-        borderPane.setTop(menuBar);
-
-
-        Scene mainScene = new Scene(borderPane, 600, 600);
-        primaryStage.setScene(mainScene);
-        primaryStage.show();
-
-
+        // this will be the primary scene.
+        Scene mainScene = new Scene(root, 600, 600); //root node: root width: 600, height: 600
+        primaryStage.setScene(mainScene); //set mainScene as the primary stage.
+        primaryStage.show(); //allows the stage to be visible
     }
+    //this method generates the menu bar that will be shared across all nodes.
+    private void genMenuBar(){
+        File.getItems().add(FileItem1);
 
-    private void genMenu(){
+        FileItem1.setOnAction(event -> switchView(mainView)); //TODO SET PROPER FUNCTIONALITY
         //add menu items for Options Menu
         Options.getItems().addAll(OptionsItem1, OptionsItem2, OptionsItem3, OptionsItem4);
-        //set action event for OptionsItem1
-        OptionsItem1.setOnAction(event -> {
-            switchPane(view1);
 
-        });
-        //set action event for OptionItem2
-        OptionsItem2.setOnAction(event -> {
-            switchPane(view2);
+        //set action event for OptionsItem1. lets user switch to view1 node
+        OptionsItem1.setOnAction(event -> switchView(view1)); //on click, exit to view1
 
-        });
-        OptionsItem3.setOnAction(event -> {
-            out.println("bonjour");
-        });
+        //set action event for OptionItem2. lets user switch to view2 node
+        OptionsItem2.setOnAction(event -> switchView(view2)); // on click, exit to view2
 
-        OptionsItem4.setOnAction(event -> {
-            out.println("bonjour");
-        });
+        //set action event for OptionItem3. lets user switch to view3 node
+        OptionsItem3.setOnAction(event -> switchView(view3)); // on click, exit to view3
 
-        menuVBox = new VBox(menuBar);
-        menuBar.getMenus().addAll(Options);
-    }
+        //on click, exit the program
+        OptionsItem4.setOnAction(event -> System.exit(0));
 
-    private void genPaneOne(){
-        LocalDate currentDate = LocalDate.now();
-        LocalTime currentTime = LocalTime.now();
-        Label showDateAndTime;
-        showDateAndTime = new Label("Current Date: " + currentDate + "\n" + "Current Time: " + currentTime);
+        menuBar.getMenus().addAll(File, Options); // add both File and Options menu to menuBar
 
-        view1.getChildren().addAll(showDateAndTime);
-
-        //GridPane.setRowIndex(showDateAndTime, 2);
-        view1.setAlignment(Pos.CENTER);
-
+        root = new BorderPane(); //this will be the root node for mainScene
+        root.setTop(menuBar); //set the menuBar to the top of the borderPane
 
     }
-
-    private GridPane genPaneTwo(){
-        TextField userTextField = new TextField();
-        userTextField.setMaxWidth(300);
-
-        Button submit = new Button("Submit");
-        view2.getChildren().addAll(userTextField, submit);
-
-        view2.setAlignment(Pos.CENTER);
-        view2.setStyle("-fx-background-color: blue");
-
-        return view2;
+    private void switchView(Node view){
+        root.setCenter(view);
     }
     public static void main( String[] args )
     {
         launch(args);
     }
 
-
-
-
-    private void switchPane(Pane pane){
-        borderPane.setCenter(pane);
-
-    }
-
-    public static void setTextArea(String userInput) {
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("log.txt"));
-            writer.write(userInput);
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 
 
 
-/*
-class NodeTwo extends StackPane {
-    public NodeTwo(){
-        setStyle("-fx-background-color: red; -fx-font-size: 30px;");
-        TextField userTextField = new TextField();
-        userTextField.setMaxWidth(300);
-        userTextField.setAlignment(Pos.TOP_CENTER);
-        Button submit = new Button("Submit");
-        submit.setAlignment(Pos.BOTTOM_CENTER);
 
-        userTextField.setOnAction(event -> {
-            String userInput = userTextField.getText();
-            setTextArea(userInput);
-
-        });
-
-        getChildren().addAll(userTextField, submit);
-
-    }
-
-
-}
-*/
