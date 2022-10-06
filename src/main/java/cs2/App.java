@@ -14,15 +14,15 @@ public class App extends Application
     private final Menu File = new Menu("File");
     private final MenuItem FileItem1 = new MenuItem("Back to main menu");
     private final Menu Options = new Menu("Options"); //add new menu called "Options"
-    private final MenuItem OptionsItem1 = new MenuItem("Date");
+    private final MenuItem OptionsItem1 = new MenuItem("Date/Time");
     private final MenuItem OptionsItem2 = new MenuItem("Write");
-    private final MenuItem OptionsItem3 = new MenuItem("Option 3");
+    private final MenuItem OptionsItem3 = new MenuItem("Color");
     private final MenuItem OptionsItem4 = new MenuItem("Exit");
     private BorderPane root;
-    private final Node mainView = new MainNode();
-    private final Node view1 = new NodeOne();
-    private final Node view2 = new NodeTwo();
-    private final Node view3 = new NodeThree();
+    private final Node mainView = new MainNode(); //branch node for main menu
+    private final Node view1 = new NodeOne(); //branch node for the Date/Time Menu
+    private final Node view2 = new NodeTwo(); //branch node for the Write Menu
+    private final Node view3 = new NodeThree(); //branch node for the Color Menu
 
     @Override
     public void start(Stage primaryStage){
@@ -40,6 +40,7 @@ public class App extends Application
         File.getItems().add(FileItem1);
 
         FileItem1.setOnAction(event -> switchView(mainView));
+
         //add menu items for Options Menu
         Options.getItems().addAll(OptionsItem1, OptionsItem2, OptionsItem3, OptionsItem4);
 
@@ -59,16 +60,18 @@ public class App extends Application
 
         root = new BorderPane(); //this will be the root node for mainScene
         root.setTop(menuBar); //set the menuBar to the top of the borderPane
-
     }
+    //the following method is what will allow for the switching of nodes
     private void switchView(Node view){
         root.setCenter(view);
     }
+
+    //boilerplate for any java program that needs to be launched
     public static void main( String[] args )
     {
+        //this is boilerplate for javafx programs essentially
         launch(args);
     }
-
 }
 
 
