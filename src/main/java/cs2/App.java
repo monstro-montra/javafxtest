@@ -39,7 +39,7 @@ public class App extends Application
     private void genMenuBar(){
         File.getItems().add(FileItem1);
 
-        FileItem1.setOnAction(event -> switchView(mainView)); //TODO SET PROPER FUNCTIONALITY
+        FileItem1.setOnAction(event -> switchView(mainView));
         //add menu items for Options Menu
         Options.getItems().addAll(OptionsItem1, OptionsItem2, OptionsItem3, OptionsItem4);
 
