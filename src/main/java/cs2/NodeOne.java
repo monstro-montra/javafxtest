@@ -8,13 +8,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 class NodeOne extends VBox {
-
     public NodeOne(){
-        setAlignment(Pos.CENTER);
-        LocalDate currentDate = LocalDate.now();
-        LocalTime currentTime = LocalTime.now();
-        Label showDateAndTime;
-        showDateAndTime = new Label("Current Date: " + currentDate + "\n" + "Current Time: " + currentTime);
-        getChildren().add(showDateAndTime);
+        setAlignment(Pos.CENTER); //position vbox to the center
+        LocalDate currentDate = LocalDate.now(); //get local date
+        LocalTime currentTime = LocalTime.now(); //get local time
+        Label showDateAndTime; //create label
+        showDateAndTime = new Label("Current Date: " + currentDate + "\n" + "Current Time: " + currentTime); //implement date and time to label
+        getChildren().add(showDateAndTime); //add showDateAndTime to vbox
     }
 }
